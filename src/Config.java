@@ -8,9 +8,9 @@ public class Config {
     public static final int y = cellSize * 3;
     public static final int numStones = 5;
 
-    public static final Color gardenColor = Color.LIGHT_GRAY;
+    public static final Color gardenColor = Color.YELLOW;
     public static final Color gridColor = Color.DARK_GRAY;
     public static final Color snakeColor = Color.RED;
-    public static final Color stoneColor = Color.YELLOW;
+    public static final Color stoneColor = Color.DARK_GRAY;
     public static final Color foodColor = Color.GREEN;
 }

@@ -96,8 +96,7 @@ public class Garden extends JPanel {
             System.out.println("VÉGE!!!!");
             gameHasEnded = true;
         } else {
-            System.out.println("food before reprint: ");
-            System.out.printf("%d %d\n", food.col, food.row);
+
             if (snake.justAte) {
                 // check if the new food is on a stone
                 food.next();
@@ -112,8 +111,7 @@ public class Garden extends JPanel {
                 }
                 snake.justAte = false;
             }
-            System.out.println("food after reprint:");
-            System.out.printf("%d %d\n", food.col, food.row);
+
         }
     }
 

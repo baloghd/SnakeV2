@@ -24,14 +24,13 @@ public class SnakeGUI {
     public void showHighScoreWindow() {
         JFrame frame2 = new JFrame();
         frame2.setSize(250,300);
+        boolean alreadysaved = false;
 
         JPanel main2 = new JPanel();
 
         DatabaseConnector dbc = new DatabaseConnector(false);
         JLabel highscores = new JLabel();
         highscores.setText(dbc.getBest10());
-
-
 
         JTextField playername = new JTextField();
         playername.setText("Játékos");
@@ -46,6 +45,8 @@ public class SnakeGUI {
                 public void actionPerformed(ActionEvent e) {
                     dbc.saveHighscore(playername.getText(), snake.length - 2);
                     System.out.printf("highscore saved for %s\n", playername.getText());
+                    highscores.setText(dbc.getBest10());
+                    saveHighscore.setEnabled(false);
                 }
             });
             main2.add(saveHighscore);
