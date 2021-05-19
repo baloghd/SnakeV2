@@ -85,7 +85,6 @@ public class Garden extends JPanel {
             stillalive &= snake.tryEating(s);
         }
 
-
         if (!stillalive) {
             System.out.println("VÉGE!!!!");
             gameHasEnded = true;
@@ -104,13 +103,11 @@ public class Garden extends JPanel {
                         break;
                     }
                 }
-
                 snake.justAte = false;
             }
             System.out.println("food after reprint:");
             System.out.printf("%d %d\n", food.col, food.row);
         }
-
     }
 
     public void setStones(ArrayList<Stone> stones) {
