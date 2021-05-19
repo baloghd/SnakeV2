@@ -50,6 +50,25 @@ public class DatabaseConnector {
         return saving_ok;
     }
 
+    public int worstScoreTop10() {
+        try {
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(2);
+            ResultSet rs;
+            rs = statement.executeQuery("SELECT MIN(scr) as minscr FROM (SELECT score AS scr FROM game ORDER BY score DESC LIMIT 10) tmp;");
+            int minscr = -1;
+            while (rs.next()) {
+                minscr = Integer.parseInt(rs.getString("minscr"));
+                System.out.printf("minscore: %d\n", minscr);
+            }
+            return minscr < 0 ? -1 : minscr;
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return -1;
+        }
+    }
+
     public String getBest10() {
         try {
             Statement statement = connection.createStatement();
@@ -60,7 +79,6 @@ public class DatabaseConnector {
             StringBuilder hs = new StringBuilder();
             hs.append("<html>");
             int c = 1;
-
 
             while (rs.next()) {
                 hs.append(String.format("%d. ", c));

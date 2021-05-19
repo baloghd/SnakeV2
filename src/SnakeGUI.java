@@ -21,6 +21,43 @@ public class SnakeGUI {
     public ArrayList<Stone> stones;
     public long starttime;
 
+    public void showHighScoreWindow() {
+        JFrame frame2 = new JFrame();
+        frame2.setSize(250,300);
+
+        JPanel main2 = new JPanel();
+
+        DatabaseConnector dbc = new DatabaseConnector(false);
+        JLabel highscores = new JLabel();
+        highscores.setText(dbc.getBest10());
+
+
+
+        JTextField playername = new JTextField();
+        playername.setText("Játékos");
+        main2.add(highscores);
+        main2.add(playername);
+
+        if (dbc.worstScoreTop10() <= snake.length - 2) {
+            JButton saveHighscore = new JButton();
+            saveHighscore.setText("Save highscore");
+            saveHighscore.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    dbc.saveHighscore(playername.getText(), snake.length - 2);
+                    System.out.printf("highscore saved for %s\n", playername.getText());
+
+                }
+            });
+            main2.add(saveHighscore);
+        }
+
+        frame2.getContentPane().add(main2);
+        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame2.setTitle("Vége a játéknak!");
+        frame2.setVisible(true);
+    }
+
     public SnakeGUI() {
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,41 +125,7 @@ public class SnakeGUI {
                     System.out.println("A GUI IS MEGTUDTA HOGY VÉGE");
                     timer.stop();
 
-                    JFrame frame2 = new JFrame();
-                    frame2.setSize(250,300);
-
-                    JPanel main2 = new JPanel();
-
-                    DatabaseConnector dbc = new DatabaseConnector(false);
-                    JLabel highscores = new JLabel();
-
-
-
-                    highscores.setText(dbc.getBest10());
-
-                    JTextField playername = new JTextField();
-                    playername.setText("Játékos");
-
-                    JButton saveHighscore = new JButton();
-                    saveHighscore.setText("Save highscore");
-                    saveHighscore.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            dbc.saveHighscore(playername.getText(), snake.length - 2);
-                            System.out.printf("highscore saved for %s\n", playername.getText());
-                        }
-                    });
-
-                    main2.add(highscores);
-                    main2.add(playername);
-                    main2.add(saveHighscore);
-
-                    frame2.getContentPane().add(main2);
-                    frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame2.setTitle("Vége a játéknak!");
-                    frame2.setVisible(true);
-
-
+                    showHighScoreWindow();
                 } else {
                     Date now = new Date();
                     label.setText(String.format("Idő: %d",(now.getTime()/1000l) - starttime));
