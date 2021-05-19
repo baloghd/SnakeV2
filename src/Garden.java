@@ -17,7 +17,10 @@ public class Garden extends JPanel {
         this.snake = snake;
         this.food = food;
         this.stones = stones;
+        setKeyEvents();
+    }
 
+    public void setKeyEvents() {
         this.getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "pressed left");
         this.getActionMap().put("pressed left", new AbstractAction() {
             @Override
@@ -53,14 +56,6 @@ public class Garden extends JPanel {
                 snake.setHeading(Heading.UP);
             }
         });
-
-        /*this.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                System.out.println("KEYEVENT");
-                snake.keyPressed(e);
-            }
-        });*/
     }
 
     @Override
@@ -84,8 +79,7 @@ public class Garden extends JPanel {
         boolean stillalive;
         stillalive = snake.tryEating(food);
 
-        for (Stone s :
-                stones) {
+        for (Stone s : stones) {
             s.draw(g2);
             stillalive &= snake.tryEating(s);
         }
@@ -95,6 +89,15 @@ public class Garden extends JPanel {
             gameHasEnded = true;
         }
 
+    }
+
+    public void setStones(ArrayList<Stone> stones) {
+        this.stones = stones;
+    }
+
+    public void setSnake(Snake snake) {
+        this.snake = snake;
+        setKeyEvents();
     }
 
 

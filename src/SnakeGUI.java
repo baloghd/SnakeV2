@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SnakeGUI {
 
@@ -16,6 +18,7 @@ public class SnakeGUI {
     public Snake snake;
     public Food food;
     public ArrayList<Stone> stones;
+    public long starttime;
 
     public SnakeGUI() {
         frame = new JFrame();
@@ -30,13 +33,17 @@ public class SnakeGUI {
         frame.setJMenuBar(bar);
         bar.add(menu);
 
-        // init kövek
+        // init kövek, kígyó, étel
         snake = new Snake();
         food = new Food();
         stones = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             stones.add(new Stone());
         }
+
+        int seconds = 0;
+        Date now = new Date();
+        starttime = now.getTime() / 1000L;
 
 
         garden = new Garden(snake, food, stones);
@@ -46,14 +53,32 @@ public class SnakeGUI {
 
         JPanel buttonPanel = new JPanel();
 
+        JLabel label = new JLabel();
+        label.setText("00:00");
+
+
+
         JButton backgroundButton = new JButton("New game");
         backgroundButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 System.out.println("new game button pressed");
+                stones = new ArrayList<>();
+                for (int i = 0; i < 10; i++) {
+                    stones.add(new Stone());
+                }
+                snake = new Snake();
+                garden.setStones(stones);
+                garden.setSnake(snake);
+                garden.setKeyEvents();
+                garden.gameHasEnded = false;
+                starttime = (new Date()).getTime() / 1000L;
+                timer.restart();
+                frame.invalidate();
+                frame.repaint();
             }
         });
-
+        buttonPanel.add(label);
         buttonPanel.add(backgroundButton);
 
         frame.getContentPane().add(BorderLayout.SOUTH, buttonPanel);
@@ -65,9 +90,11 @@ public class SnakeGUI {
                 if (garden.gameHasEnded) {
                     System.out.println("A GUI IS MEGTUDTA HOGY VÉGE");
                     timer.stop();
+                } else {
+                    Date now = new Date();
+                    label.setText(String.format("%d",(now.getTime()/1000l) - starttime));
+                    frame.repaint();
                 }
-
-                frame.repaint();
             }
         });
         timer.start();

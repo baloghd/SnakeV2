@@ -71,25 +71,6 @@ public class Snake {
         move();
     }
 
-   /* public void keyPressed(ActionEvent e) {
-        int key = e.getKeyCode();
-        switch (key) {
-            case KeyEvent.VK_LEFT:
-                heading = Heading.LEFT;
-                break;
-            case KeyEvent.VK_UP:
-                heading = Heading.UP;
-                break;
-            case KeyEvent.VK_RIGHT:
-                heading = Heading.RIGHT;
-                break;
-            case KeyEvent.VK_DOWN:
-                heading = Heading.DOWN;
-                break;
-        }
-        System.out.println(heading);
-    }*/
-
     public boolean tryEating(Cell c) {
         if (hasCollided()) return false;
         if(head.row == c.row && head.col == c.col) {
