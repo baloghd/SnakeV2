@@ -56,8 +56,6 @@ public class SnakeGUI {
         JLabel label = new JLabel();
         label.setText("00:00");
 
-
-
         JButton backgroundButton = new JButton("New game");
         backgroundButton.addActionListener(new ActionListener() {
             @Override
@@ -70,12 +68,10 @@ public class SnakeGUI {
                 snake = new Snake();
                 garden.setStones(stones);
                 garden.setSnake(snake);
-                garden.setKeyEvents();
+                garden.requestFocus();
                 garden.gameHasEnded = false;
                 starttime = (new Date()).getTime() / 1000L;
                 timer.restart();
-                frame.invalidate();
-                frame.repaint();
             }
         });
         buttonPanel.add(label);
@@ -90,9 +86,18 @@ public class SnakeGUI {
                 if (garden.gameHasEnded) {
                     System.out.println("A GUI IS MEGTUDTA HOGY VÉGE");
                     timer.stop();
+
+                    JFrame frame2 = new JFrame();
+                    frame2.setSize(250,300);
+
+                    frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame2.setTitle("Vége a játéknak!");
+                    frame2.setVisible(true);
+
+
                 } else {
                     Date now = new Date();
-                    label.setText(String.format("%d",(now.getTime()/1000l) - starttime));
+                    label.setText(String.format("Idő: %d",(now.getTime()/1000l) - starttime));
                     frame.repaint();
                 }
             }

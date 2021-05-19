@@ -19,6 +19,10 @@ public class Snake {
         length = 2;
     }
 
+    public void reset() {
+
+    }
+
     public static Heading getRandomHeading() {
         List<Heading> Headings = Arrays.asList(Heading.class.getEnumConstants());
         Random rand = new Random();

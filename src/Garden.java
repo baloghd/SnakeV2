@@ -43,7 +43,7 @@ public class Garden extends JPanel {
         this.getActionMap().put("pressed DOWN", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                System.out.println("KEYEVENT");
+                System.out.println("DOWN");
                 snake.setHeading(Heading.DOWN);
             }
         });
@@ -52,7 +52,7 @@ public class Garden extends JPanel {
         this.getActionMap().put("pressed UP", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                System.out.println("KEYEVENT");
+                System.out.println("Down");
                 snake.setHeading(Heading.UP);
             }
         });
@@ -97,7 +97,7 @@ public class Garden extends JPanel {
 
     public void setSnake(Snake snake) {
         this.snake = snake;
-        setKeyEvents();
+        //setKeyEvents();
     }
 
 
