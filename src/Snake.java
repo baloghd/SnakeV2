@@ -19,10 +19,6 @@ public class Snake {
         length = 2;
     }
 
-    public void reset() {
-
-    }
-
     public static Heading getRandomHeading() {
         List<Heading> Headings = Arrays.asList(Heading.class.getEnumConstants());
         Random rand = new Random();
@@ -82,7 +78,10 @@ public class Snake {
                 System.out.println("EVÉS!");
                 length++;
                 moveHead();
-                c.next();
+                do {
+                    c.next();
+                } while(Math.abs(c.col - head.col) + Math.abs(c.row - head.row) < 10);
+
                 return true;
             }
             else if (c.ct == CellType.STONE) {

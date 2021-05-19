@@ -75,32 +75,33 @@ public class SnakeGUI {
         snake = new Snake();
         food = new Food();
         stones = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            stones.add(new Stone());
+        for (int i = 0; i < Config.numStones; i++) {
+            Stone newstone = new Stone();
+            do {
+                newstone.next();
+            } while ((newstone.col == food.col) && (newstone.row == food.row));
+            stones.add(newstone);
         }
+
+
 
         int seconds = 0;
         Date now = new Date();
         starttime = now.getTime() / 1000L;
 
-
         garden = new Garden(snake, food, stones);
         garden.setPreferredSize(new Dimension(450, 500));
         frame.getContentPane().add(BorderLayout.CENTER, garden);
-
-
         JPanel buttonPanel = new JPanel();
-
         JLabel label = new JLabel();
         label.setText("00:00");
-
         JButton backgroundButton = new JButton("New game");
         backgroundButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 System.out.println("new game button pressed");
                 stones = new ArrayList<>();
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < Config.numStones; i++) {
                     stones.add(new Stone());
                 }
                 snake = new Snake();
@@ -117,14 +118,12 @@ public class SnakeGUI {
 
         frame.getContentPane().add(BorderLayout.SOUTH, buttonPanel);
 
-
         timer = new Timer(150, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (garden.gameHasEnded) {
                     System.out.println("A GUI IS MEGTUDTA HOGY VÉGE");
                     timer.stop();
-
                     showHighScoreWindow();
                 } else {
                     Date now = new Date();
