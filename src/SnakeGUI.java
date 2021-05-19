@@ -53,9 +53,23 @@ public class SnakeGUI {
         }
 
         frame2.getContentPane().add(main2);
-        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame2.setTitle("Vége a játéknak!");
+        frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame2.setTitle("Highscores");
         frame2.setVisible(true);
+    }
+
+    public void makeNewGame() {
+        stones = new ArrayList<>();
+        for (int i = 0; i < Config.numStones; i++) {
+            stones.add(new Stone());
+        }
+        snake = new Snake();
+        garden.setStones(stones);
+        garden.setSnake(snake);
+        garden.requestFocus();
+        garden.gameHasEnded = false;
+        starttime = (new Date()).getTime() / 1000L;
+        timer.restart();
     }
 
     public SnakeGUI() {
@@ -65,8 +79,23 @@ public class SnakeGUI {
         JMenuBar bar = new JMenuBar();
         JMenu menu = new JMenu("Menü");
         JMenuItem menuitem = new JMenuItem("Új játék");
+        menuitem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("new game button pressed");
+                makeNewGame();
+            }
+        });
         menu.add(menuitem);
         JMenuItem menuitem2 = new JMenuItem("Highscore");
+        menuitem2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("highscore button pressed");
+                showHighScoreWindow();
+            }
+        });
+
         menu.add(menuitem2);
         frame.setJMenuBar(bar);
         bar.add(menu);
@@ -100,17 +129,7 @@ public class SnakeGUI {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 System.out.println("new game button pressed");
-                stones = new ArrayList<>();
-                for (int i = 0; i < Config.numStones; i++) {
-                    stones.add(new Stone());
-                }
-                snake = new Snake();
-                garden.setStones(stones);
-                garden.setSnake(snake);
-                garden.requestFocus();
-                garden.gameHasEnded = false;
-                starttime = (new Date()).getTime() / 1000L;
-                timer.restart();
+                makeNewGame();
             }
         });
         buttonPanel.add(label);
