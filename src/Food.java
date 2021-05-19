@@ -8,7 +8,7 @@ public class Food extends Cell {
     }
 
     public Food(int fr, int fc) {
-        super();
+        super(fr, fc);
         ct = CellType.FOOD;
         cellColor = Config.foodColor;
     }

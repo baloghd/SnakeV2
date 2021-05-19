@@ -35,7 +35,7 @@ class SnakeTest {
     void tryEatingFood() {
         Food food = new Food(10,10);
         testsnake = new Snake();
-        assertEquals(true, testsnake.tryEating(food));
+        assertTrue(testsnake.tryEating(food));
     }
 
     @org.junit.jupiter.api.Test
@@ -43,8 +43,7 @@ class SnakeTest {
         Stone stone = new Stone(10,11);
         testsnake = new Snake(Heading.RIGHT);
         testsnake.move();
-        testsnake.printSnake();
-        assertEquals(false, testsnake.tryEating(stone));
+        assertFalse(testsnake.tryEating(stone));
     }
 
 }

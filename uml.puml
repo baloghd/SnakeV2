@@ -48,6 +48,19 @@ Cell *-- CellType
 Cell *-- java.awt.Color
 
 
+class Food {
+    + Food()
+    + Food(int, int)
+    + setUpRender(): void <<override>>
+}
+
+class Stone {
+    + Stone()
+    + Stone(int, int)
+    + setUpRender(): void <<override>>
+}
+
+
 enum CellType {
     EMPTY,
     SNAKE,
