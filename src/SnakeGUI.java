@@ -27,10 +27,17 @@ public class SnakeGUI {
         menu.add(menuitem2);
         frame.setJMenuBar(bar);
         bar.add(menu);
-        // add the UFOs
-        // ufos = new ArrayList<>();
 
-        drawArea = new Garden();
+        // init kövek
+        snake = new Snake();
+        food = new Food();
+        stones = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            stones.add(new Stone());
+        }
+
+
+        drawArea = new Garden(snake, food, stones);
         drawArea.setPreferredSize(new Dimension(450, 500));
         frame.getContentPane().add(BorderLayout.CENTER, drawArea);
 
@@ -49,7 +56,8 @@ public class SnakeGUI {
 
         frame.getContentPane().add(BorderLayout.SOUTH, buttonPanel);
 
-        timer = new Timer(30, new ActionListener() {
+
+        timer = new Timer(600, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 //Dimension d = drawArea.getSize();
@@ -59,7 +67,6 @@ public class SnakeGUI {
                 frame.repaint();
             }
         });
-
         timer.start();
 
         frame.setSize(500, 500);
