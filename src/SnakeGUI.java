@@ -46,7 +46,6 @@ public class SnakeGUI {
                 public void actionPerformed(ActionEvent e) {
                     dbc.saveHighscore(playername.getText(), snake.length - 2);
                     System.out.printf("highscore saved for %s\n", playername.getText());
-
                 }
             });
             main2.add(saveHighscore);

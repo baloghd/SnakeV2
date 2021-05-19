@@ -5,11 +5,15 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.List;
 
-public class Snake {
+public class Snake implements Iterable<SnakePart>{
     private Heading heading;
     public SnakePart head, tail;
     int length;
     boolean justAte;
+
+    public Iterator<SnakePart> iterator() {
+        return new SnakeIterator(this);
+    }
 
     public Snake() {
         heading = getRandomHeading();
@@ -73,23 +77,28 @@ public class Snake {
         move();
     }
 
+
     public boolean tryEating(Cell c) {
         if (hasCollided()) return false;
         if(head.row == c.row && head.col == c.col) {
-            if (c.ct == CellType.FOOD) {
-                System.out.println("EVÉS!");
-                length++;
-                moveHead();
-                /* do {
-                    c.next();
-                } while(Math.abs(c.col - head.col) + Math.abs(c.row - head.row) < 10);
-                */
-                justAte = true;
-                return true;
-            }
-            else if (c.ct == CellType.STONE) {
-                System.out.println("VÉGE, ÜTKÖZÉS!");
-                return false;
+            switch (c.ct) {
+                case FOOD -> {
+                    System.out.println("EVÉS!");
+                    length++;
+                    moveHead();
+                    justAte = true;
+                    return true;
+                }
+                case STONE -> {
+                    System.out.println("VÉGE, ÜTKÖZÉS!");
+                    return false;
+                }
+
+                case SNAKE -> {
+                    System.out.println("VÉGE, KíGYÓ ÜTKÖZÉS!");
+                    return false;
+                }
+
             }
         }
         return true;

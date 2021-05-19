@@ -3,10 +3,12 @@ import java.awt.*;
 public class SnakePart {
     int row, col;
     int x, y;
+    CellType ct;
     SnakePart next, previous;
     Color color;
 
     public SnakePart(int row, int col) {
+        ct = CellType.SNAKE;
         this.row = row;
         this.col = col;
         x = Config.x + col * Config.cellSize;

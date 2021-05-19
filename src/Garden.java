@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Garden extends JPanel {
 
@@ -83,6 +84,12 @@ public class Garden extends JPanel {
         for (Stone s : stones) {
             s.draw(g2);
             stillalive &= snake.tryEating(s);
+        }
+
+        for (SnakePart snakePart : snake) {
+            if (snakePart.col == snake.head.col && snakePart.row == snake.head.row) {
+                stillalive = false;
+            }
         }
 
         if (!stillalive) {
