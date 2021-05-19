@@ -17,7 +17,17 @@ public class Snake implements Iterable<SnakePart>{
         System.out.printf("first heading: %s%n", heading);
         head = new SnakePart(10,10);
         tail = head;
-        moveHead();
+        //moveHead();
+        length = 2;
+        justAte = false;
+    }
+
+    public Snake(Heading forcedHeading) {
+        heading = forcedHeading;
+        System.out.printf("first heading: %s%n", heading);
+        head = new SnakePart(10,10);
+        tail = head;
+        //moveHead();
         length = 2;
         justAte = false;
     }
@@ -74,6 +84,14 @@ public class Snake implements Iterable<SnakePart>{
         move();
     }
 
+    public void printSnake() {
+        SnakePart sp = head;
+        while(sp != null) {
+            System.out.printf("(%d, %d)\n", sp.row, sp.col);
+            sp = sp.next;
+        }
+    }
+
 
     public boolean tryEating(Cell c) {
         if (hasCollided()) return false;
@@ -109,9 +127,7 @@ public class Snake implements Iterable<SnakePart>{
         this.heading = newHeading;
     }
 
-    /*public Heading getHeading() {
+    public Heading getHeading() {
         return this.heading;
     }
-
-    */
 }

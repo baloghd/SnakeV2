@@ -13,6 +13,13 @@ abstract public class Cell {
         next();
     }
 
+    public Cell(int forcerow, int forcecol) {
+        this.row = forcerow;
+        this.col = forcecol;
+        x = Config.x + col * Config.cellSize;
+        y = Config.y + row * Config.cellSize;
+    }
+
     public void next() {
         this.row = random.nextInt(Config.cellSquareLength);
         this.col = random.nextInt(Config.cellSquareLength);

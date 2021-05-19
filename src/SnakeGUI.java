@@ -55,6 +55,7 @@ public class SnakeGUI {
 
     public void makeNewGame() {
         snake = new Snake();
+        snake.moveHead();
         food.next();
         stones = new ArrayList<>();
         for (int i = 0; i < Config.numStones; i++) {
@@ -102,6 +103,7 @@ public class SnakeGUI {
 
         // init kövek, kígyó, étel
         snake = new Snake();
+        snake.moveHead();
         food = new Food();
         stones = new ArrayList<>();
         for (int i = 0; i < Config.numStones; i++) {

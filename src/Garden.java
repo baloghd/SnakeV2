@@ -73,6 +73,7 @@ public class Garden extends JPanel {
         g2.setColor(c);
         System.out.println("food before draw: ");
         System.out.printf("%d %d\n", food.col, food.row);
+
         food.draw(g2);
         snake.draw(g2);
         boolean stillalive;
