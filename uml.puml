@@ -1,0 +1,130 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+class java.swing.JFrame
+class java.swing.JButton
+class java.swing.JPanel
+class java.swing.JLabel
+class java.swing.Timer
+class java.awt.Graphics
+class java.awt.Graphics2D
+
+java.awt.Graphics <|-- java.awt.Graphics2D
+
+class java.awt.event.ActionListener
+class java.awt.Color
+
+class SnakeGUI
+
+SnakeGUI *-up- java.awt.event.ActionListener
+SnakeGUI *-up- Garden
+SnakeGUI *-down- java.swing.JFrame
+SnakeGUI *-- java.swing.JPanel
+SnakeGUI *-- java.swing.JButton
+SnakeGUI *-- java.swing.JLabel
+SnakeGUI *-- java.swing.Timer
+
+class Garden
+
+class Snake
+class SnakePart
+Snake o-- SnakePart
+Snake *-- Heading
+
+class Cell
+class Food
+class Stone
+
+interface Iterator<SnakePart> {
+}
+
+Iterator <|-- SnakeIterator
+
+Cell <|-- Food
+Cell <|-- Stone
+
+Cell *-- CellType
+Cell *-- java.awt.Color
+
+
+enum CellType {
+    EMPTY,
+    SNAKE,
+    STONE,
+    FOOD
+}
+
+enum Heading {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+}
+
+class SnakeGUI {
+    - JFrame frame;
+    - Timer timer;
+    - Garden garden;
+    + Snake snake;
+    + Food food;
+    + ArrayList<Stone> stones;
+    + long starttime;
+    + SnakeGUI();
+    + showHighScoreWindow(): void
+    + makeNewGame(): void
+}
+
+class SnakePart {
+    + int row, col;
+    + int x, y;
+    + CellType ct;
+    + SnakePart next, previous;
+    + Color color;
+    + SnakePart(int, int)
+    + draw(Graphics): void
+}
+
+class Config {
+}
+
+class Garden {
+     - Snake snake;
+     - Food food;
+     - ArrayList<Stone> stones;
+     + boolean gameHasEnded;
+     + Garden(...)
+     + setKeyEvents(): void
+     ~ paintComponent(Graphics g): void <<override>>
+     + setStones(), setSnake()...
+}
+
+class Cell {
+    ...
+    + Cell()
+    + next(): void
+    + draw(Graphics2D): void
+    + {abstract} setUpRender(Graphics2D): void
+}
+
+Cell --> java.awt.Graphics2D
+
+class Snake {
+    - Heading heading;
+    + SnakePart head, tail;
+    + int length;
+    + boolean justAte;
+    + Snake()
+    + {static} getRandomHeading(): Heading
+    + moveHead(): void
+    + removeTail(): void
+    + move(): void
+    + draw(Graphics): void
+    + tryEating(Cell): boolean
+    - hasCollided(): boolean
+    ... setterek()
+}
+
+Cell --> Snake
+
+@enduml

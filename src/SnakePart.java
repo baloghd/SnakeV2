@@ -1,11 +1,11 @@
 import java.awt.*;
 
 public class SnakePart {
-    int row, col;
-    int x, y;
-    CellType ct;
-    SnakePart next, previous;
-    Color color;
+    public int row, col;
+    public int x, y;
+    public CellType ct;
+    public SnakePart next, previous;
+    public Color color;
 
     public SnakePart(int row, int col) {
         ct = CellType.SNAKE;

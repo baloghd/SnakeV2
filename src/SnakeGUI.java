@@ -1,11 +1,7 @@
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -103,8 +99,6 @@ public class SnakeGUI {
         menu.add(menuitem2);
         frame.setJMenuBar(bar);
         bar.add(menu);
-
-
 
         // init kövek, kígyó, étel
         snake = new Snake();
