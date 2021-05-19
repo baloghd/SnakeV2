@@ -4,7 +4,7 @@ public class Food extends Cell {
     public Food() {
         super();
         ct = CellType.FOOD;
-        cellColor = Color.GREEN;
+        cellColor = Config.foodColor;
     }
 
     @Override

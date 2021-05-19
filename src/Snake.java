@@ -9,6 +9,7 @@ public class Snake {
     private Heading heading;
     public SnakePart head, tail;
     int length;
+    boolean justAte;
 
     public Snake() {
         heading = getRandomHeading();
@@ -17,6 +18,7 @@ public class Snake {
         tail = head;
         moveHead();
         length = 2;
+        justAte = false;
     }
 
     public static Heading getRandomHeading() {
@@ -78,10 +80,11 @@ public class Snake {
                 System.out.println("EVÉS!");
                 length++;
                 moveHead();
-                do {
+                /* do {
                     c.next();
                 } while(Math.abs(c.col - head.col) + Math.abs(c.row - head.row) < 10);
-
+                */
+                justAte = true;
                 return true;
             }
             else if (c.ct == CellType.STONE) {

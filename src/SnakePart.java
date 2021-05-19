@@ -11,7 +11,7 @@ public class SnakePart {
         this.col = col;
         x = Config.x + col * Config.cellSize;
         y = Config.y + row * Config.cellSize;
-        color = Color.BLACK;
+        color = Config.snakeColor;
     }
 
     public void draw(Graphics g) {

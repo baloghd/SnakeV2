@@ -51,7 +51,6 @@ public class SnakeGUI {
             });
             main2.add(saveHighscore);
         }
-
         frame2.getContentPane().add(main2);
         frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame2.setTitle("Highscores");
@@ -59,11 +58,16 @@ public class SnakeGUI {
     }
 
     public void makeNewGame() {
+        snake = new Snake();
+        food.next();
         stones = new ArrayList<>();
         for (int i = 0; i < Config.numStones; i++) {
-            stones.add(new Stone());
+            Stone newstone = new Stone();
+            do {
+                newstone.next();
+            } while ((newstone.col == food.col) && (newstone.row == food.row));
+            stones.add(newstone);
         }
-        snake = new Snake();
         garden.setStones(stones);
         garden.setSnake(snake);
         garden.requestFocus();
@@ -100,6 +104,8 @@ public class SnakeGUI {
         frame.setJMenuBar(bar);
         bar.add(menu);
 
+
+
         // init kövek, kígyó, étel
         snake = new Snake();
         food = new Food();
@@ -111,7 +117,6 @@ public class SnakeGUI {
             } while ((newstone.col == food.col) && (newstone.row == food.row));
             stones.add(newstone);
         }
-
 
 
         int seconds = 0;
@@ -135,6 +140,11 @@ public class SnakeGUI {
         buttonPanel.add(label);
         buttonPanel.add(backgroundButton);
 
+        JLabel score = new JLabel();
+        score.setText("Pontszám: 0");
+        buttonPanel.add(score);
+
+
         frame.getContentPane().add(BorderLayout.SOUTH, buttonPanel);
 
         timer = new Timer(150, new ActionListener() {
@@ -147,6 +157,7 @@ public class SnakeGUI {
                 } else {
                     Date now = new Date();
                     label.setText(String.format("Idő: %d",(now.getTime()/1000l) - starttime));
+                    score.setText(String.format("Pontszám: %d", snake.length - 2));
                     frame.repaint();
                 }
             }

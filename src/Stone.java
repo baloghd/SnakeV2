@@ -5,7 +5,7 @@ public class Stone extends Cell {
     public Stone() {
         super();
         ct = CellType.STONE;
-        cellColor = Color.BLUE;
+        cellColor = Config.stoneColor;
     }
 
     @Override

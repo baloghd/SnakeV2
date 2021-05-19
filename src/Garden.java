@@ -64,7 +64,7 @@ public class Garden extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         Toolkit.getDefaultToolkit().sync();
         Color c = g2.getColor();
-        g2.setColor(Color.WHITE);
+        g2.setColor(Config.gardenColor);
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
         g2.setColor(Color.BLACK);
 
@@ -73,7 +73,8 @@ public class Garden extends JPanel {
             g2.drawLine(Config.x + Config.cellSize * i, Config.y, Config.x + Config.cellSize * i, Config.y + Config.GameArea);
         }
         g2.setColor(c);
-
+        System.out.println("food before draw: ");
+        System.out.printf("%d %d\n", food.col, food.row);
         food.draw(g2);
         snake.draw(g2);
         boolean stillalive;
@@ -84,9 +85,30 @@ public class Garden extends JPanel {
             stillalive &= snake.tryEating(s);
         }
 
+
         if (!stillalive) {
             System.out.println("VÉGE!!!!");
             gameHasEnded = true;
+        } else {
+            System.out.println("food before reprint: ");
+            System.out.printf("%d %d\n", food.col, food.row);
+            if (snake.justAte) {
+                // check if the new food is on a stone
+                food.next();
+
+                for (Stone s : stones) {
+                    if (s.col == food.col && s.row == food.row) {
+                        food.next();
+                    }
+                    else {
+                        break;
+                    }
+                }
+
+                snake.justAte = false;
+            }
+            System.out.println("food after reprint:");
+            System.out.printf("%d %d\n", food.col, food.row);
         }
 
     }
@@ -97,7 +119,6 @@ public class Garden extends JPanel {
 
     public void setSnake(Snake snake) {
         this.snake = snake;
-        //setKeyEvents();
     }
 
 
