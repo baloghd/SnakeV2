@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.*;
@@ -70,7 +71,7 @@ public class Snake {
         move();
     }
 
-    public void keyPressed(KeyEvent e) {
+   /* public void keyPressed(ActionEvent e) {
         int key = e.getKeyCode();
         switch (key) {
             case KeyEvent.VK_LEFT:
@@ -87,7 +88,7 @@ public class Snake {
                 break;
         }
         System.out.println(heading);
-    }
+    }*/
 
     public boolean tryEating(Cell c) {
         if (hasCollided()) return false;
@@ -111,11 +112,13 @@ public class Snake {
         return head.row < 0 || head.col < 0 || head.row > Config.cellSquareLength - 1 || head.col > Config.cellSquareLength - 1;
     }
 
+    public void setHeading(Heading newHeading) {
+        this.heading = newHeading;
+    }
+
     /*public Heading getHeading() {
         return this.heading;
     }
 
-    public void setHeading(Heading newHeading) {
-        this.heading = newHeading;
-    }*/
+    */
 }

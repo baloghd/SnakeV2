@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class Garden extends JPanel {
@@ -8,10 +11,56 @@ public class Garden extends JPanel {
     private Food food;
     private ArrayList<Stone> stones;
 
+    boolean gameHasEnded = false;
+
     public Garden(Snake snake, Food food, ArrayList<Stone> stones) {
         this.snake = snake;
         this.food = food;
         this.stones = stones;
+
+        this.getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "pressed left");
+        this.getActionMap().put("pressed left", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                System.out.println("LEFT");
+                snake.setHeading(Heading.LEFT);
+            }
+        });
+
+        this.getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "pressed right");
+        this.getActionMap().put("pressed right", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                System.out.println("RIGHT");
+                snake.setHeading(Heading.RIGHT);
+            }
+        });
+
+        this.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "pressed DOWN");
+        this.getActionMap().put("pressed DOWN", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                System.out.println("KEYEVENT");
+                snake.setHeading(Heading.DOWN);
+            }
+        });
+
+        this.getInputMap().put(KeyStroke.getKeyStroke("UP"), "pressed UP");
+        this.getActionMap().put("pressed UP", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                System.out.println("KEYEVENT");
+                snake.setHeading(Heading.UP);
+            }
+        });
+
+        /*this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                System.out.println("KEYEVENT");
+                snake.keyPressed(e);
+            }
+        });*/
     }
 
     @Override
@@ -38,20 +87,14 @@ public class Garden extends JPanel {
         for (Stone s :
                 stones) {
             s.draw(g2);
-            //stillalive &= snake.tryEating(s);
-        }
-        /*
-
-        for (Stone s :
-                stones) {
-            s.render(g);
             stillalive &= snake.tryEating(s);
         }
 
         if (!stillalive) {
-            this.endGame();
-            //this.getParent().endGame();
-        }*/
+            System.out.println("VÉGE!!!!");
+            gameHasEnded = true;
+        }
+
     }
 
 

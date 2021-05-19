@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class SnakeGUI {
@@ -9,7 +11,7 @@ public class SnakeGUI {
     private JFrame frame;
     private Timer timer;
 
-    private Garden drawArea;
+    private Garden garden;
 
     public Snake snake;
     public Food food;
@@ -37,18 +39,18 @@ public class SnakeGUI {
         }
 
 
-        drawArea = new Garden(snake, food, stones);
-        drawArea.setPreferredSize(new Dimension(450, 500));
-        frame.getContentPane().add(BorderLayout.CENTER, drawArea);
+        garden = new Garden(snake, food, stones);
+        garden.setPreferredSize(new Dimension(450, 500));
+        frame.getContentPane().add(BorderLayout.CENTER, garden);
 
 
         JPanel buttonPanel = new JPanel();
 
-        JButton backgroundButton = new JButton("Change background");
+        JButton backgroundButton = new JButton("New game");
         backgroundButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-
+                System.out.println("new game button pressed");
             }
         });
 
@@ -57,13 +59,14 @@ public class SnakeGUI {
         frame.getContentPane().add(BorderLayout.SOUTH, buttonPanel);
 
 
-        timer = new Timer(600, new ActionListener() {
+        timer = new Timer(150, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //Dimension d = drawArea.getSize();
-//                for (UFO ufo : ufos) {
-//                    ufo.move(d.width, d.height);
-//                }
+                if (garden.gameHasEnded) {
+                    System.out.println("A GUI IS MEGTUDTA HOGY VÉGE");
+                    timer.stop();
+                }
+
                 frame.repaint();
             }
         });
