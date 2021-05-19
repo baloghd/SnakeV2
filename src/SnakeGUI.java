@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -90,6 +91,33 @@ public class SnakeGUI {
                     JFrame frame2 = new JFrame();
                     frame2.setSize(250,300);
 
+                    JPanel main2 = new JPanel();
+
+                    DatabaseConnector dbc = new DatabaseConnector(false);
+                    JLabel highscores = new JLabel();
+
+
+
+                    highscores.setText(dbc.getBest10());
+
+                    JTextField playername = new JTextField();
+                    playername.setText("Játékos");
+
+                    JButton saveHighscore = new JButton();
+                    saveHighscore.setText("Save highscore");
+                    saveHighscore.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            dbc.saveHighscore(playername.getText(), snake.length - 2);
+                            System.out.printf("highscore saved for %s\n", playername.getText());
+                        }
+                    });
+
+                    main2.add(highscores);
+                    main2.add(playername);
+                    main2.add(saveHighscore);
+
+                    frame2.getContentPane().add(main2);
                     frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     frame2.setTitle("Vége a játéknak!");
                     frame2.setVisible(true);
